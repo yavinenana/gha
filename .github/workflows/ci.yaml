@@ -1,6 +1,6 @@
 on: 
   pull_request:
-    branches: [ master ]
+    branches: [ main ]
 name: build CI on branch dev and push hubdocker
 jobs:
   build:
