@@ -27,18 +27,18 @@ jobs:
     name: build CD - checkout dev - create txt
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-      with:
-        ref: dev
-#    - run: echo 'cloned ref dev'
-      name: '*** time to .. generated txt ***'
-      run: |
-        date > generated.txt
-        git config user.name github-actions
-        git config user.email github-actions@github.com
-        git add .
-        git commit -m "generated"
-        git push
+      - uses: actions/checkout@v2
+        with:
+          ref: dev
+  #    - run: echo 'cloned ref dev'
+      - name: '*** time to .. generated txt ***'
+        run: |
+          date > generated.txt
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add .
+          git commit -m "generated"
+          git push
 
 #        tag_with_ref: true
 #        tag_with_sha: true
