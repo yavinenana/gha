@@ -1,15 +1,11 @@
 name: first workflow
 
 on:
-  # push:
-  #   branches: [ master ]
   pull_request:
-    branches: [ master ]
-  # pull_request:
-  #   branches: [ main ]
-  # push:
-  #   branches: [ main ]
-  # name: build CI on branch master and push hubdocker
+    branches: [ main ]
+  push:
+    branches: [ main ]
+#  name: build CI on branch master and push hubdocker
 jobs:
   # build:
   #   if: github.event_name == 'pull_request'
