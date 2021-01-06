@@ -1,7 +1,7 @@
 on: 
   pull_request:
     branches: [ main ]
-name: build CI on branch dev and push hubdocker
+name: build CI on branch master and push hubdocker
 jobs:
   build:
     name: build CI - checkout dev - echo finish
@@ -18,21 +18,23 @@ jobs:
         repository: ${{ github.repository }}
         run: echo "finish build-push-action"
 
-        #on: push
-        #name: build CD on branch dev and push hubdocker
-        #jobs:
-        #  build:
-        #    name: build CD - checkout dev - create txt
-        #    runs-on: ubuntu-latest
-        #    steps:
-        #    - uses: actions/checkout@v2
-        #    - run: |
-        #        date > generated.txt
-        #        git config user.name github-actions
-        #        git config user.email github-actions@github.com
-        #        git add .
-        #        git commit -m "generated"
-        #        git push
+on: 
+  push:
+    branches: [ main ]
+name: build CD on branch master and push hubdocker
+jobs:
+  build:
+    name: build CD - checkout dev - create txt
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - run: |
+        date > generated.txt
+        git config user.name github-actions
+        git config user.email github-actions@github.com
+        git add .
+        git commit -m "generated"
+        git push
 
 #        tag_with_ref: true
 #        tag_with_sha: true
