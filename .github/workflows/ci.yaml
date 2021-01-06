@@ -2,9 +2,12 @@ name: 'first workflow'
 on: 
   pull_request:
     branches: [ main ]
+  push:
+    branches: [ main ]
   name: build CI on branch master and push hubdocker
 jobs:
   build:
+    if: github.event_name == 'pull_request'
     name: build CI - checkout dev - echo finish
     runs-on: ubuntu-latest
     steps:
@@ -19,12 +22,8 @@ jobs:
         repository: ${{ github.repository }}
         run: echo "finish build-push-action"
 
-name: 'second workflow'
-  push:
-    branches: [ main ]
-  name: build CD on branch master and push hubdocker
-jobs:
-  build:
+  deploy:
+    if: github.event_name == 'push'
     name: build CD - checkout dev - create txt
     runs-on: ubuntu-latest
     steps:
