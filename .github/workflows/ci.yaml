@@ -1,4 +1,5 @@
-#name: first workflow
+name: first workflow
+
 on:
   # push:
   #   branches: [ master ]
@@ -25,7 +26,6 @@ jobs:
   #       password: ${{ secrets.DOCKER_PASSWORD }}
   #       repository: ${{ github.repository }}
   #       run: echo "finish build-push-action"
-
   deploy:
 #    if: github.event_name == 'push'
     name: build CD - checkout dev - create txt
