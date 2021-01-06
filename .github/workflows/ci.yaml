@@ -1,5 +1,5 @@
-#name: first-workflow
-#
+name: first-workflow
+
 on:
   pull_request:
     branches: [ main ]
@@ -30,6 +30,7 @@ jobs:
     - uses: actions/checkout@v2
       with:
         ref: dev
+    - run: echo 'cloned ref dev'
     - name: '*** time to .. generated txt ***'
     - run: |
         date > generated.txt
