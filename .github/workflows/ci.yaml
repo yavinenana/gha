@@ -1,4 +1,4 @@
-name: first workflow gha
+name: first-workflow
 
 on:
   pull_request:
