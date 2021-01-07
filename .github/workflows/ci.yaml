@@ -32,14 +32,13 @@ jobs:
           ref: dev
   #    - run: echo 'cloned ref dev'
       - name: '*** time to .. generated txt ***'
-        run: echo "this is all time test"
-#        run: |
-#          date > generated.txt
-#          git config user.name github-actions
-#          git config user.email github-actions@github.com
-#          git add .
-#          git commit -m "generated"
-#          git push
+        run: |
+          date > generated.txt
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add .
+          git commit -m "generated"
+          git push
 ## deploy to aws s3
 #      - name: 'aws s3 copy'
 ##        uses: actions/checkout@master
