@@ -10,7 +10,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
-          ref: master
+          ref: main
 # deploy to aws s3
       - name: 'aws s3 copy'
         uses: jakejarvis/s3-sync-action@master
