@@ -1,0 +1,71 @@
+name: first-workflow
+
+on:
+  pull_request:
+    branches: [ main ]
+  push:
+    branches: [ main ]
+#  name: build CI on branch master and push hubdocker
+jobs:
+  # build:
+  #   if: github.event_name == 'pull_request'
+  #   name: build CI - checkout dev - echo finish
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #   - uses: actions/checkout@v2
+
+  #   - name: --- build and push to docker ---
+  #     uses: docker/build-push-action@v1
+  #     with:
+  #       ref: dev
+  #       username: ${{ secrets.DOCKER_USERNAME }}
+  #       password: ${{ secrets.DOCKER_PASSWORD }}
+  #       repository: ${{ github.repository }}
+  #       run: echo "finish build-push-action"
+  deploy:
+#    if: github.event_name == 'push'
+    name: build CD - checkout dev - create txt
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: dev
+  #    - run: echo 'cloned ref dev'
+      - name: '*** time to .. generated txt ***'
+        run: |
+          date > generated.txt
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add .
+          git commit -m "generated"
+          git push
+# deploy to aws s3
+      - name: 'aws s3 copy'
+#        uses: actions/checkout@master
+        uses: jakejarvis/s3-sync-action@master
+        with:
+#          args: --acl public-read --follow-symlinks --delete
+          args: --follow-symlinks --delete
+        env:
+          AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: 'us-east-1'   # optional: defaults to us-east-1
+#          SOURCE_DIR: 'public'      # optional: defaults to entire repository
+# ========================================#
+#        tag_with_ref: true
+#        tag_with_sha: true
+#        tags: ${{ github.sha }}
+    # - name: --- deploy to cluster kubernetes ---
+    #   uses: steebchen/kubectl@master
+    #   env:
+    #     KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
+    #   with:
+    #     args: set image --record deployment/my-app prueba-gha=${{ github.repository }}:${{ github.sha }}
+    # - name: verify deployment
+    #   uses: steebchen/kubectl@master
+    #   env:
+    #     KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
+    #     KUBECTL_VERSION: "1.15"
+    #   with:
+    #     args: '"rollout status deployment/my-app"'
