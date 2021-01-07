@@ -1,10 +1,10 @@
 name: first-workflow
 
 on:
-  pull_request:
-    branches: [ main ]
+#  pull_request:
+#    branches: [ main ]
   push:
-    branches: [ main ]
+    branches: [ dev ]
 #  name: build CI on branch master and push hubdocker
 jobs:
   # build:
@@ -32,24 +32,25 @@ jobs:
           ref: dev
   #    - run: echo 'cloned ref dev'
       - name: '*** time to .. generated txt ***'
-        run: |
-          date > generated.txt
-          git config user.name github-actions
-          git config user.email github-actions@github.com
-          git add .
-          git commit -m "generated"
-          git push
-# deploy to aws s3
-      - name: 'aws s3 copy'
-#        uses: actions/checkout@master
-        uses: jakejarvis/s3-sync-action@master
-        with:
-#          args: --acl public-read --follow-symlinks --delete
-          args: --follow-symlinks --delete --exclude '.git/*'
-        env:
-          AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_REGION: 'us-east-1'   # optional: defaults to us-east-1
-#          SOURCE_DIR: 'public'      # optional: defaults to entire repository
+        run: echo "this is all time test"
+#        run: |
+#          date > generated.txt
+#          git config user.name github-actions
+#          git config user.email github-actions@github.com
+#          git add .
+#          git commit -m "generated"
+#          git push
+## deploy to aws s3
+#      - name: 'aws s3 copy'
+##        uses: actions/checkout@master
+#        uses: jakejarvis/s3-sync-action@master
+#        with:
+##          args: --acl public-read --follow-symlinks --delete
+#          args: --follow-symlinks --exclude '.git/*' --exclude '.github/*' --delete
+#        env:
+#          AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
+#          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+#          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+#          AWS_REGION: 'us-east-1'   # optional: defaults to us-east-1
+##          SOURCE_DIR: 'public'      # optional: defaults to entire repository
 # ========================================#
