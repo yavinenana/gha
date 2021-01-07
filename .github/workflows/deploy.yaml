@@ -2,7 +2,7 @@ name: second-workflow
 
 on:
   push:
-    branches: [ master ]
+    branches: [ main ]
 jobs:
   deploy:
     name: 'DEPLOY CD || checkout dev - run create txt -  aws s3 copy '
